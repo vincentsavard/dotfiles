@@ -1,0 +1,7 @@
+(load "/home/vincent/.emacs.d/default.el")
+(load "/home/vincent/.emacs.d/tuareg-mode.el")
+(load "/home/vincent/.emacs.d/haskell-mode.el")
+(load "/home/vincent/.emacs.d/lua-mode.el")
+(load "/home/vincent/.emacs.d/c-mode.el")
+(load "/home/vincent/.emacs.d/html-mode.el")
+(load "/home/vincent/.emacs.d/java-mode.el")
