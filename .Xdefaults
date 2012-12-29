@@ -11,7 +11,7 @@ URxvt.font: xft:Inconsolata:pixelsize=14
 URxvt.boldFont: xft:Inconsolata:pixelsize=14
 
 URxvt.perl-ext-common: default,matcher
-URxvt.urlLauncher: /usr/bin/chromium
+URxvt.url-launcher: /usr/bin/chromium
 URxvt.matcher.button: 1
 !URxvt.colorUL
 
