@@ -1,13 +1,15 @@
 -- Standard awesome library
-require("awful")
+awful = require("awful")
+awful.rules = require("awful.rules")
 require("awful.autofocus")
 require("awful.rules")
 -- Theme handling library
 theme = require("beautiful")
 -- Notification library
-require("naughty")
+naughty = require("naughty")
 -- Widgets library
 vicious = require("vicious")
+wibox = require("wibox")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -21,7 +23,7 @@ end
 -- Handle runtime errors after startup
 do
     local in_error = false
-    awesome.add_signal("debug::error", function (err)
+    awesome.connect_signal("debug::error", function (err)
         -- Make sure we don't go into an endless error loop
         if in_error then return end
         in_error = true
@@ -37,7 +39,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 -- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
-beautiful.init("/home/vincent/.config/awesome/themes/default.lua")
+theme.init("/home/vincent/.config/awesome/themes/default.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -87,7 +89,7 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, theme.awesome_icon },
                                     { "open terminal", terminal }
                                   }
                         })
@@ -96,21 +98,21 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
 
 -- {{{ Wibox
 -- textclock widget
-mytextclock = awful.widget.textclock({ align = "right" })
+mytextclock = awful.widget.textclock()
 
 -- systray
-mysystray = widget({ type = "systray" })
+-- mysystray = wibox.widget.systray()
 
 -- mem widget
-memwidget = widget({ type = "textbox" })
+memwidget = wibox.widget.textbox()
 vicious.register(memwidget, vicious.widgets.mem, function (w, a) return theme.darkred('mem: ') .. theme.red(a[1] ..'%') end, 61)
 
 -- cpu widget
-cpuwidget = widget({ type = "textbox" })
+cpuwidget = wibox.widget.textbox()
 vicious.register(cpuwidget, vicious.widgets.cpu, function (w, a) return theme.darkgreen('cpu: ') .. theme.green(a[1] ..'%') end, 113)
 
 -- bat widget
-batwidget = widget({ type = "textbox" })
+batwidget = wibox.widget.textbox()
 vicious.register(batwidget, vicious.widgets.bat, 
 		 function (w, a) 
 		    if a[2] == 100 then
@@ -122,7 +124,7 @@ vicious.register(batwidget, vicious.widgets.bat,
 		 127, 'BAT0')
 
 -- vol widget
-volwidget = widget({ type = "textbox" })
+volwidget = wibox.widget.textbox()
 vicious.register(volwidget, vicious.widgets.volume, 
 		 function (w, a)
 		    if a[2] == "♫" then -- not muted
@@ -134,7 +136,7 @@ vicious.register(volwidget, vicious.widgets.volume,
 		 53, 'Master')
 
 -- mpd widget
-mpdwidget = widget({ type = "textbox" })
+mpdwidget = wibox.widget.textbox()
 vicious.register(mpdwidget, vicious.widgets.mpd, 
 		 function (w, a)
 		    if a['{state}'] == "N/A" or a['{state}'] == "Stop" then
@@ -146,7 +148,7 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
 		 11)
 
 -- net widget
-netwidget = widget({ type = "textbox" })
+netwidget = wibox.widget.textbox()
 vicious.register(netwidget, vicious.widgets.wifi,
 		 function (w, a)
 		    if theme.ip_addr("eth0") ~= "" then
@@ -160,8 +162,8 @@ vicious.register(netwidget, vicious.widgets.wifi,
 		 137, "wlan0")
 
 -- tab spacer
-spacer = widget({ type = "textbox" })
-spacer.text = "    "
+spacer = wibox.widget.textbox()
+spacer:set_text("    ")
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -210,7 +212,8 @@ mytasklist.buttons = awful.util.table.join(
 
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
-    mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright, prompt = " Run: " })
+    --mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright, prompt = " Run: " })
+   mypromptbox[s] = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
@@ -220,39 +223,43 @@ for s = 1, screen.count() do
                            awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
+    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
+
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(function(c)
-                                              return awful.widget.tasklist.label.currenttags(c, s)
-                                          end, mytasklist.buttons)
+    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
+--    mytasklist[s] = awful.widget.tasklist(function(c)
+--                                              return awful.widget.tasklist.label.currenttags(c, s)
+--                                          end, mytasklist.buttons)
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s, height = theme.wibox_height })
-    -- Add widgets to the wibox - order matters
-    mywibox[s].widgets = {
-        {
-            mytaglist[s],
-            mypromptbox[s],
-            layout = awful.widget.layout.horizontal.leftright
-        },
-        mylayoutbox[s],
-        mytextclock,
-	spacer,
-	netwidget,
-	spacer,
-	batwidget,
-	spacer,
-	memwidget,
-	spacer,
-	cpuwidget,
-	spacer,
-	volwidget,
-	spacer,
-	mpdwidget,
-        s == 1 and mysystray or nil,
-        layout = awful.widget.layout.horizontal.rightleft
-    }
+    -- Create the layouts
+    local left_layout = wibox.layout.fixed.horizontal()
+    left_layout:add(mytaglist[s])
+    left_layout:add(mypromptbox[s])
+
+    local right_layout = wibox.layout.fixed.horizontal()
+    right_layout:add(mylayoutbox[s])
+    right_layout:add(mpdwidget)
+    right_layout:add(spacer)
+    right_layout:add(volwidget)
+    right_layout:add(spacer)
+    right_layout:add(cpuwidget)
+    right_layout:add(spacer)
+    right_layout:add(memwidget)
+    right_layout:add(spacer)
+    right_layout:add(batwidget)
+    right_layout:add(spacer)
+    right_layout:add(netwidget)
+    right_layout:add(spacer)
+    right_layout:add(mytextclock)
+
+    local layout = wibox.layout.align.horizontal()
+    layout:set_left(left_layout)
+    layout:set_right(right_layout)
+
+    mywibox[s]:set_widget(layout)
 end
 -- }}}
 
@@ -389,8 +396,8 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
+      properties = { border_width = theme.border_width,
+                     border_color = theme.border_normal,
                      focus = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
