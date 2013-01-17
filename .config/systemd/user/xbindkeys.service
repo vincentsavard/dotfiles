@@ -1,0 +1,8 @@
+[Unit]
+Description = xbindkeys
+
+[Service]
+ExecStart = /usr/bin/xbindkeys --nodaemon
+
+[Install]
+WantedBy = default.target
