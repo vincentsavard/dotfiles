@@ -1,14 +1,6 @@
 URxvt.scrollBar: false
 
-Xft.dpi: 96
-Xft.antialias: true
-Xft.rgba: rgb
-Xft.hinting: true
-Xft.hintstyle: hintslight
-Xft.lcdfilter: lcdlegacy
-
-URxvt.font: xft:Inconsolata:pixelsize=14
-URxvt.boldFont: xft:Inconsolata:pixelsize=14
+URxvt.font: xft:terminus:pixelsize=10
 
 URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/chromium
