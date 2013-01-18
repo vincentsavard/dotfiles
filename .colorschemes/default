@@ -1,0 +1,27 @@
+! tangoesque scheme
+*background: #111111
+*foreground: #babdb6
+! Black + DarkGrey
+*color0:  #000000
+*color8:  #E5E5E5
+! DarkRed + Red
+*color1:  #AB0000
+*color9:  #FF0000
+! DarkGreen + Green
+*color2:  #00AB00
+*color10: #00FF00
+! DarkYellow + Yellow
+*color3:  #ABAB00
+*color11: #FFFF00
+! DarkBlue + Blue
+*color4:  #0000AB
+*color12: #0000FF
+! DarkMangenta + Mangenta
+*color5:  #AB00AB
+*color13: #FF00FF
+! DarkCyan + Cyan
+*color6:  #0387D4
+*color14: #03B7F4
+! LightGrey
+*color7:  #CCCCCC
+*color15: #CCCCCC

@@ -1,42 +1,15 @@
-URxvt.scrollBar: false
+urxvt*title: urxvt
+urxvt*termName: rxvt-256color
+urxvt.scrollBar: false
 
-URxvt.font: xft:terminus:pixelsize=10
+! Font
+urxvt.font: xft:terminus:pixelsize=10
+urxvt.boldFont: xft:terminus:pixelsize=10
 
-URxvt.perl-ext-common: default,matcher
-URxvt.url-launcher: /usr/bin/chromium
-URxvt.matcher.button: 1
-!URxvt.colorUL
+! URL Launcher
+urxvt.perl-ext-common: default,matcher
+urxvt.url-launcher: /usr/bin/chromium
+urxvt.matcher.button: 1
 
-URxvt.depth: 32
-URxvt.transparent: true
-URxvt.shading: 10
-URxvt.background: #000000
-URxvt.foreground: White
-
-! tangoesque scheme
-*background: #111111
-*foreground: #babdb6
-! Black + DarkGrey
-*color0:  #000000
-*color8:  #E5E5E5
-! DarkRed + Red
-*color1:  #AB0000
-*color9:  #FF0000
-! DarkGreen + Green
-*color2:  #00AB00
-*color10: #00FF00
-! DarkYellow + Yellow
-*color3:  #ABAB00
-*color11: #FFFF00
-! DarkBlue + Blue
-*color4:  #0000AB
-*color12: #0000FF
-! DarkMangenta + Mangenta
-*color5:  #AB00AB
-*color13: #FF00FF
-! DarkCyan + Cyan
-*color6:  #0387D4
-*color14: #03B7F4
-! LightGrey
-*color7:  #CCCCCC
-*color15: #CCCCCC
+! Colorscheme
+#include "/home/vincent/.colorschemes/muzieca"
