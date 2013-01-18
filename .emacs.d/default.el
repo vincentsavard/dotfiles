@@ -14,3 +14,8 @@
 
 ;; Save backup in ~/.saves/
 (setq backup-directory-alist '(("." . "/home/vincent/.saves")))
+
+;; Color theme
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-dark-laptop)
