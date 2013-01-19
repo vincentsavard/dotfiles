@@ -39,7 +39,8 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 -- beautiful.init("/usr/share/awesome/themes/default/theme.lua")
-theme.init("/home/vincent/.config/awesome/themes/default.lua")
+--theme.init("/home/vincent/.config/awesome/themes/default.lua")
+theme.init("/home/vincent/.config/awesome/themes/low_contrast.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -103,23 +104,11 @@ mytextclock = awful.widget.textclock()
 -- systray
 -- mysystray = wibox.widget.systray()
 
--- mem widget
-memwidget = wibox.widget.textbox()
-vicious.register(memwidget, vicious.widgets.mem, function (w, a) return theme.darkred('mem: ') .. theme.red(a[1] ..'%') end, 61)
-
--- cpu widget
-cpuwidget = wibox.widget.textbox()
-vicious.register(cpuwidget, vicious.widgets.cpu, function (w, a) return theme.darkgreen('cpu: ') .. theme.green(a[1] ..'%') end, 113)
-
 -- bat widget
 batwidget = wibox.widget.textbox()
 vicious.register(batwidget, vicious.widgets.bat, 
-		 function (w, a) 
-		    if a[2] == 100 then
-		       return theme.darkyellow('bat: ') .. theme.yellow('full')
-		    else
-		       return theme.darkyellow('bat: ') .. theme.yellow(a[2] .. '%')
-		    end
+		 function (w, a)
+		    return theme.darkgreen("b: " .. a[2] .. "%")
 		 end, 
 		 127, 'BAT0')
 
@@ -128,9 +117,9 @@ volwidget = wibox.widget.textbox()
 vicious.register(volwidget, vicious.widgets.volume, 
 		 function (w, a)
 		    if a[2] == "♫" then -- not muted
-		       return theme.darkmagenta("vol: ") .. theme.magenta(a[1] .. "%")
+		       return theme.darkred("v: " .. a[1] .. "%")
 		    else
-		       return theme.darkmagenta("vol: ") .. theme.magenta("muted")
+		       return theme.darkred("v: muted")
 		    end
 		 end, 
 		 53, 'Master')
@@ -142,7 +131,7 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
 		    if a['{state}'] == "N/A" or a['{state}'] == "Stop" then
 		       return ""
 		    else
-		       return theme.darklightblue(a['{Artist}']) .. " " .. theme.lightblue(a['{Title}'])
+		       return theme.darkblue(a['{Artist}']) .. "/" .. theme.darkblue(a['{Title}'])
 		    end
 		 end, 
 		 11)
@@ -152,18 +141,18 @@ netwidget = wibox.widget.textbox()
 vicious.register(netwidget, vicious.widgets.wifi,
 		 function (w, a)
 		    if theme.ip_addr("eth0") ~= "" then
-		       return theme.darkblue("eth0: ") .. theme.blue(theme.ip_addr("eth0"))
+		       return theme.darkyellow(theme.ip_addr("eth0"))
 		    elseif theme.ip_addr("wlan0") ~= "" then
-		       return theme.darkblue("wlan0: ") .. theme.blue("[".. a["{linp}"] .."%] " .. theme.ip_addr("wlan0"))
+		       return theme.darkyellow("[".. a["{linp}"] .."%] " .. theme.ip_addr("wlan0"))
 		    else
-		       return theme.darkblue("[offline]")
+		       return theme.darkyellow("[offline]")
 		    end
 		 end,
 		 137, "wlan0")
 
 -- tab spacer
 spacer = wibox.widget.textbox()
-spacer:set_text("    ")
+spacer:set_text("   ")
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -244,10 +233,6 @@ for s = 1, screen.count() do
     right_layout:add(mpdwidget)
     right_layout:add(spacer)
     right_layout:add(volwidget)
-    right_layout:add(spacer)
-    right_layout:add(cpuwidget)
-    right_layout:add(spacer)
-    right_layout:add(memwidget)
     right_layout:add(spacer)
     right_layout:add(batwidget)
     right_layout:add(spacer)
