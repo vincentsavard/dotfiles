@@ -1,6 +1,4 @@
-#
-# ~/.bashrc
-#
+# ~/.zshrc
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -22,6 +20,9 @@ alias ll='ls -lh --color=auto --group-directories-first'
 alias e='emacs -nw'
 alias ocaml='rlwrap ocaml'
 
-PS1='\[\e[0;32m\]\u\[\e[0;1m\]:\[\e[1;32m\]\W\[\e[m\] '
+autoload -U compinit promptinit colors
+compinit
+promptinit
+colors
 
-source ~/.git-completion.bash
+PROMPT="%{$fg_no_bold[green]%}%n%{$reset_color%}:%{$fg_no_bold[yellow]%}%~%{$reset_color%} "
