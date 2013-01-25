@@ -1,0 +1,7 @@
+[user]
+	name = Vincent Savard
+	email = savard.vincent at gmail dot com
+[core]
+	editor = emacs -nw
+[color]
+	ui = auto
