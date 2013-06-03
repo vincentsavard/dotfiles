@@ -1,4 +1,4 @@
-;; Set space indent to 4
+;; Set space indent to 2
 (add-hook 'html-mode-hook
   (lambda ()
-    (set (make-local-variable 'sgml-basic-offset) 4)))
+    (set (make-local-variable 'sgml-basic-offset) 2)))

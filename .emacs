@@ -5,3 +5,4 @@
 (load "/home/vincent/.emacs.d/c-mode.el")
 (load "/home/vincent/.emacs.d/html-mode.el")
 (load "/home/vincent/.emacs.d/java-mode.el")
+(load "/home/vincent/.emacs.d/sql-mode.el")
