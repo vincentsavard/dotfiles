@@ -18,6 +18,7 @@ alias e='emacs -nw'
 alias ocaml='rlwrap ocaml'
 alias chmod='chmod -c'
 alias chown='chown -c'
+alias rsync='rsync -P'
 
 # zsh stuff
 autoload -U compinit promptinit colors
