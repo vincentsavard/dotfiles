@@ -2,7 +2,7 @@ autocutsel -fork &
 autocutsel -selection PRIMARY -fork &
 
 # run systemd as user instance
-systemd --user &
+exec /usr/lib/systemd/systemd --user &
 
 feh --bg-scale ~/images/wallpapers/starwars.jpg
 

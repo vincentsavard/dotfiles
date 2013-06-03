@@ -7,7 +7,7 @@
     m:0x0 + c:123
     XF86AudioRaiseVolume
 
-"amixer sset Master toggle"
+"amixer set Master toggle"
     m:0x0 + c:121
     XF86AudioMute
 
