@@ -14,7 +14,7 @@ fi
 # Aliases
 alias ls='ls --color=auto'
 alias ll='ls -lh --color=auto --group-directories-first'
-alias e='emacs -nw'
+alias e='emacsclient -t'
 alias ocaml='rlwrap ocaml'
 alias chmod='chmod -c'
 alias chown='chown -c'
