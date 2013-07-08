@@ -5,5 +5,6 @@ autocutsel -selection PRIMARY -fork &
 exec /usr/lib/systemd/systemd --user &
 
 feh --bg-scale ~/images/wallpapers/starwars.jpg
+emacs --daemon
 
 exec awesome
